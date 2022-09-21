@@ -1,5 +1,4 @@
 api:
-  enable: false
   url: $URL
   api_key: $API_KEY
   service_key: $SERVICE_KEY
