@@ -16,7 +16,7 @@ COPY contrast_security.yaml /etc/contrast/contrast_security.yaml
 ENV CONTRAST__ASSESS__ENABLE=false
 ENV CONTRAST__PROTECT__ENABLE=false
 
-run pip3 install ./contrast-agent.tar.gz
+RUN pip3 install ./contrast-agent.tar.gz
 # End Contrast Additions
 
 # Uses alternate gunicorn config

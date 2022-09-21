@@ -1,4 +1,4 @@
-FROM node:14.15.1-slim
+FROM node:16.14.0-slim
 
 COPY ./ ./
 
@@ -17,7 +17,7 @@ ENV CONTRAST__ASSESS__ENABLE=false
 ENV CONTRAST__PROTECT__ENABLE=false
 ENV CONTRAST__AGENT__NODE__NATIVE_INPUT_ANALYSIS=true
 
-run npm install ./node-contrast.tgz
+RUN npm install ./node-contrast.tgz
 # End Contrast Additions
 
 CMD ["node", "-r", "@contrast/agent", "app.js"]

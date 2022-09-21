@@ -25,7 +25,7 @@ COPY contrast_security.yaml /etc/contrast/contrast_security.yaml
 ENV CONTRAST__ASSESS__ENABLE=false
 ENV CONTRAST__PROTECT__ENABLE=true
 
-run bundle exec gem install ./contrast-agent.gem --platform ruby
+RUN bundle exec gem install ./contrast-agent.gem --platform ruby
 
 RUN bundle add contrast-agent
 # End Contrast Additions
