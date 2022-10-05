@@ -20,8 +20,15 @@ fi;
 ./copy-files.sh JavaScript $AGENT_FILE
 
 # Update dockerfiles to use correct package
-grep -r 'RUN pushd .\/node_modules\/@contrast\/mono-workspace' ../frameworks/JavaScript -l | xargs -I '{}' -n 1 sed -i.bak "/RUN cd .\/node_modules\/@contrast\/mono-workspace/d" {} && ls -d ../frameworks/JavaScript/*/*.bak | xargs -n 1 rm
-grep -r @contrast/mono-workspace/protect-agent ../frameworks/JavaScript -l | xargs -I '{}' -n 1 sed -i.bak "s#@contrast/mono-workspace/protect-agent#@contrast/agent#" {} && ls -d ../frameworks/JavaScript/*/*.bak | xargs -n 1 rm
+FILES_TO_MODIFY=($(grep -HRl "# Start Contrast Additions for v5 node-agent" ../frameworks/JavaScript))
+if [[ ${FILES_TO_MODIFY[@]} ]]; then
+  for i in "${FILES_TO_MODIFY[@]}"
+  do 
+    awk '/Additions for v5 node-agent/ { print "# Start Contrast Additions for v4 node-agent"; next }1' ${i} > ${i}.bak && mv ${i}.bak ${i}
+  done
+  grep -r 'RUN cd .\/node_modules\/@contrast\/mono-workspace' ../frameworks/JavaScript -l | xargs -I '{}' -n 1 sed -i.bak "/RUN cd .\/node_modules\/@contrast\/mono-workspace/d" {} && ls -d ../frameworks/JavaScript/*/*.bak | xargs -n 1 rm
+  grep -r @contrast/mono-workspace/protect-agent ../frameworks/JavaScript -l | xargs -I '{}' -n 1 sed -i.bak "s#@contrast/mono-workspace/protect-agent#@contrast/agent#" {} && ls -d ../frameworks/JavaScript/*/*.bak | xargs -n 1 rm
+fi
 
 # Start contrast-service
 ./start-contrast-service.sh
