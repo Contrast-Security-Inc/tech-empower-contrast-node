@@ -26,7 +26,7 @@ if [[ ${FILES_TO_MODIFY[@]} ]]; then
   do 
     awk '/Additions for v5 node-agent/ { print "# Start Contrast Additions for v4 node-agent"; next }1' ${i} > ${i}.bak && mv ${i}.bak ${i}
   done
-  grep -r 'RUN cd .\/node_modules\/@contrast\/mono-workspace' ../frameworks/JavaScript -l | xargs -I '{}' -n 1 sed -i.bak "/RUN cd .\/node_modules\/@contrast\/mono-workspace/d" {} && ls -d ../frameworks/JavaScript/*/*.bak | xargs -n 1 rm
+  grep -r node_modules/@contrast/mono-workspace ../frameworks/JavaScript -l | xargs -I '{}' -n 1 sed -i.bak "/node_modules/d" {} && ls -d ../frameworks/JavaScript/*/*.bak | xargs -n 1 rm
   grep -r @contrast/mono-workspace/protect-agent ../frameworks/JavaScript -l | xargs -I '{}' -n 1 sed -i.bak "s#@contrast/mono-workspace/protect-agent#@contrast/agent#" {} && ls -d ../frameworks/JavaScript/*/*.bak | xargs -n 1 rm
 fi
 
