@@ -9,7 +9,7 @@ ENV NODE_HANDLER sequelize-postgres
 
 EXPOSE 8080
 
-# Start Contrast Additions
+# Start Contrast Additions for v4 node-agent
 COPY node-contrast.tgz node-contrast.tgz
 COPY contrast_security.yaml /etc/contrast/contrast_security.yaml
 
