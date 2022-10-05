@@ -20,7 +20,8 @@ fi;
 ./copy-files.sh JavaScript $AGENT_FILE
 
 # Update dockerfiles to use correct package
-FILES_TO_MODIFY=($(grep -HRl "# Start Contrast Additions for v5 node-agent" ../frameworks/JavaScript))
+echo "Will query for files for modification"
+FILES_TO_MODIFY=($(grep -rl "# Start Contrast Additions for v5 node-agent" ../frameworks/JavaScript))
 echo "Files for modification queried"
 if [[ ${FILES_TO_MODIFY[@]} ]]; then
   echo "Files for modification found"
