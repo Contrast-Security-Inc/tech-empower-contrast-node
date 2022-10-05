@@ -20,7 +20,7 @@ fi;
 ./copy-files.sh node-protect $AGENT_FILE
 
 # Update dockerfiles to use correct package
-FILES_TO_MODIFY=($(grep -HRl "# Start Contrast Additions for v4 node-agent" ../frameworks/JavaScript))
+FILES_TO_MODIFY=($(grep -rl "# Start Contrast Additions for v4 node-agent" ../frameworks/JavaScript))
 if [[ ${FILES_TO_MODIFY[@]} ]]; then
   for i in "${FILES_TO_MODIFY[@]}"
   do 
