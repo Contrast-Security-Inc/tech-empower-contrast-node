@@ -1,8 +1,6 @@
 #!/bin/bash
 source ./benchmark-variables.sh
 
-set -e
-
 cd "${0%/*}"
 
 # Use files in the script directory by default
