@@ -21,20 +21,12 @@ fi;
 
 # Update dockerfiles to use correct package
 echo "Will query for files for modification"
-FILES_TO_MODIFY=($(grep -rl "# Start Contrast Additions for v5 node-agent" ../frameworks/JavaScript))
-echo "Files for modification queried"
-if [[ ${FILES_TO_MODIFY[@]} ]]; then
-  echo "Files for modification found"
-  for i in "${FILES_TO_MODIFY[@]}"
-  do 
-    awk '/Additions for v5 node-agent/ { print "# Start Contrast Additions for v4 node-agent"; next }1' ${i} > ${i}.bak && mv ${i}.bak ${i}
-    echo "Comment describing version modified"
-  done
+  grep -r node-agent-v5 ../frameworks/JavaScript -l | xargs -I '{}' -n 1 sed -i.bak "s#node-agent-v5#node-agent-v4#" {} && ls -d ../frameworks/JavaScript/*/*.bak | xargs -n 1 rm
+  echo "Version comment modified"
   grep -r node_modules/@contrast/mono-workspace ../frameworks/JavaScript -l | xargs -I '{}' -n 1 sed -i.bak "/node_modules/d" {} && ls -d ../frameworks/JavaScript/*/*.bak | xargs -n 1 rm
   echo "Unnecessary npm install calls removed"
   grep -r @contrast/mono-workspace/protect-agent ../frameworks/JavaScript -l | xargs -I '{}' -n 1 sed -i.bak "s#@contrast/mono-workspace/protect-agent#@contrast/agent#" {} && ls -d ../frameworks/JavaScript/*/*.bak | xargs -n 1 rm
   echo "Start arguments modified"
-fi
 echo "V4 modification completed"
 
 # Start contrast-service
