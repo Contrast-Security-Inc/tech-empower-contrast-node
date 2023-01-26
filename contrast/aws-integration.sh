@@ -5,7 +5,7 @@ set -e
 echo "Fetching Teamserver API secrets"
 CURRENT_REGION=`curl -s http://169.254.169.254/latest/dynamic/instance-identity/document | jq .region -r`
 
-CONTRAST_API_SECRETS=`aws secretsmanager get-secret-value --secret-id TechEmpowerTeamServerAPI --region $CURRENT_REGION --query SecretString --output text`
+CONTRAST_API_SECRETS=`aws secretsmanager get-secret-value --secret-id TS/Darpa --region $CURRENT_REGION --query SecretString --output text`
 
 export CONTRAST__API__URL=`echo $CONTRAST_API_SECRETS | jq -r .CONTRAST__API__URL`
 export CONTRAST__API__API_KEY=`echo $CONTRAST_API_SECRETS | jq -r .CONTRAST__API__API_KEY`
@@ -15,7 +15,7 @@ echo "Teamserver secrets fetched successfully"
 
 # Get the agent
 echo "Fetching the agent to test"
-aws s3 cp s3://$1/$2/$3/$4 ./
+aws s3 cp s3://$1/tech-empower/$2/$3/$4 ./
 echo "Agent fetched successfully"
 
 # Run the tests
@@ -30,5 +30,5 @@ OUTPUT_DIR=`find ../results -type d -regex "^../results/[0-9]*$"`
 
 npm run start $OUTPUT_DIR
 
-aws s3 cp $OUTPUT_DIR s3://$1/$2/$3/results --recursive
+aws s3 cp $OUTPUT_DIR s3://$1/tech-empower/$2/$3/results --recursive
 echo "Successfully parsed and pushed TechEmpower results"
