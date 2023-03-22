@@ -21,5 +21,5 @@ ENV CONTRAST__AGENT__NODE__NATIVE_INPUT_ANALYSIS=true
 RUN npm install ./node-contrast.tgz
 # End Contrast Additions
 
-CMD ["node", "-r", "@contrast/agent", "app.js"]
+CMD ["node", "--trace-warnings", "-r", "@contrast/agent", "app.js"]
 
