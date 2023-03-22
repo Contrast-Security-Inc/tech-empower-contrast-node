@@ -25,14 +25,14 @@ if [[ ${FILES_TO_MODIFY[@]} ]]; then
     awk '/npm install .\/node-contrast/ { print; print "RUN cd ./node_modules/@contrast/mono-workspace && npm install --ignore-scripts --omit-dev && cd "; next }1' ${i} > ${i}.bak && mv ${i}.bak ${i}
     awk '/node-agent-v4/ { print "# Start Contrast Additions for node-agent-v5"; next }1' ${i} > ${i}.bak && mv ${i}.bak ${i}
   done
-  grep -r @contrast/agent ../frameworks/JavaScript -l | xargs -I '{}' -n 1 sed -i.bak "s#@contrast/agent#@contrast/mono-workspace/protect-agent#" {} && ls -d ../frameworks/JavaScript/*/*.bak | xargs -n 1 rm
+  grep -r @contrast/agent ../frameworks/JavaScript -l | xargs -I '{}' -n 1 sed -i.bak "s#@contrast/agent#@contrast/mono-workspace/agent#" {} && ls -d ../frameworks/JavaScript/*/*.bak | xargs -n 1 rm
 fi
 
 # Start contrast-service
 ./start-contrast-service.sh
 
 # Run tests
-../tfb --tag contrast-unattached contrast-off contrast-protect --test-lang JavaScript --type fortune --duration $DURATION --concurrency-levels $CONCURRENCY_LEVELS
+../tfb --tag $TAG --test-lang JavaScript --type fortune --duration $DURATION --concurrency-levels $CONCURRENCY_LEVELS
 
 # Stop contrast-service container
 docker stop contrast-service
