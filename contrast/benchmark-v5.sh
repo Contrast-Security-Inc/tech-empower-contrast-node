@@ -28,11 +28,6 @@ if [[ ${FILES_TO_MODIFY[@]} ]]; then
   grep -r @contrast/agent ../frameworks/JavaScript -l | xargs -I '{}' -n 1 sed -i.bak "s#@contrast/agent#@contrast/mono-workspace/agent#" {} && ls -d ../frameworks/JavaScript/*/*.bak | xargs -n 1 rm
 fi
 
-# Start contrast-service
-./start-contrast-service.sh
-
 # Run tests
 ../tfb --tag $TAG --test-lang JavaScript --type fortune --duration $DURATION --concurrency-levels $CONCURRENCY_LEVELS
 
-# Stop contrast-service container
-docker stop contrast-service

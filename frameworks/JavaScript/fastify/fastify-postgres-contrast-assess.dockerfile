@@ -13,6 +13,7 @@ EXPOSE 8080
 COPY node-contrast.tgz node-contrast.tgz
 COPY contrast_security.yaml /etc/contrast/contrast_security.yaml
 
+ENV CONTRAST__API__ENABLE=false
 ENV CONTRAST__ASSESS__ENABLE=true
 ENV CONTRAST__PROTECT__ENABLE=false
 ENV CONTRAST__AGENT__NODE__NATIVE_INPUT_ANALYSIS=true
