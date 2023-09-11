@@ -15,7 +15,7 @@ if [[ ! -f $AGENT_FILE ]];
 fi;
 
 # Copy files into correct place
-./copy-files.sh node-protect $AGENT_FILE
+./copy-files.sh node-assess $AGENT_FILE
 
 # Update dockerfiles to use correct package
 FILES_TO_MODIFY=($(grep -rl "node-agent-v4" ../frameworks/JavaScript))
