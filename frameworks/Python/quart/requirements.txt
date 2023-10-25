@@ -15,5 +15,5 @@ Quart==0.17.0
 toml==0.10.2
 typing_extensions==4.2.0
 uvloop==0.16.0
-Werkzeug==2.1.2
+Werkzeug==3.0.1
 wsproto==1.1.0
